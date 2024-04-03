@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://i.postimg.cc/52hsRVMX/thumb.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding-top: 100px; /* Adjust as needed */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Rock Paper Scissors</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="text-center">
+                    <button class="btn btn-primary mr-2" onclick="play('rock')">Rock</button>
+                    <button class="btn btn-primary mr-2" onclick="play('paper')">Paper</button>
+                    <button class="btn btn-primary" onclick="play('scissors')">Scissors</button>
+                </div>
+                <div class="text-center mt-3">
+                    <h3 id="result"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        function play(choice) {
+            $.ajax({
+                url: '/play',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ choice: choice }),
+                success: function(response) {
+                    $('#result').text(response.result + ' You chose ' + response.player_choice + ', computer chose ' + response.computer_choice + '.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
